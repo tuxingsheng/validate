@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单验证</title>
+    <style>
+        .txs-controls{ margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <form class="txs-validate" onsubmit="return false;">
+        <div class="txs-controls">
+            <input type="text" data-rules="required|url" data-error="网址不能为空|网址格式错误" name="url" placeholder="网址">
+        </div>
+        <div class="txs-controls">
+            <input type="text" data-rules="required|date=/" data-error="日期不能为空|日期格式错误" name="date" placeholder="日期">
+        </div>
+        <div class="txs-controls">
+            <input type="text" data-rules="required" data-error="用户名不能为空" name="account" placeholder="用户名">
+        </div>
+        <div class="txs-controls">
+            <input type="password" data-rules="required|number|minlength=5|maxlength=8" data-error="原始密码不能为空|原始密码必须是数字|原始密码不能小于5位数|原始密码不能大于8位数" name="password" placeholder="原始密码">
+        </div>
+        <div class="txs-controls">
+            <input type="password" data-rules="required|number|match=password" data-error="新密码不能为空|新密码必须是数字|原始密码与新密码不一致" name="repassword" placeholder="新密码">
+        </div>
+        <div class="txs-controls">
+            <textarea rows="5" data-rules="required" data-error="简介不能为空" style="resize: none;" name="introduce" placeholder="简介"></textarea>
+        </div>
+        <button type="submit">登录</button>
+    </form>
+    <script src="./src/validate-3.0.min.js"></script>
+    <script>
+        var validate = new Validate({
+            el: '.txs-validate',
+            fail: function (err) {
+                console.log('错误信息---' + err);
+                alert('错误信息---' + err);
+            },
+            success: function () {
+                alert('通过验证');
+            }
+        });
+
+        // 除了自带的默认规则，可以通过API接口自定义验证规则
+        /*validate.setRule('number', function(value, param){
+            return (/^\d+(.\d*)?$/).test(value)
+        }, '请输入数字')*/
+
+    </script>
+</body>
+</html>
